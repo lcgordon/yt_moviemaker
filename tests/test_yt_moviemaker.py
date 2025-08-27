@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 import pytest
+import numpy as np
 
 """Tests for `yt_moviemaker` package."""
 
-# from yt_moviemaker import yt_moviemaker
+from yt_moviemaker import yt_moviemaker, utils
 
 
 @pytest.fixture

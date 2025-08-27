@@ -5,9 +5,9 @@
     - https://gist.github.com/trwaters/b354fabdf7ef7c53ad259e0876f3d897
 [done] Make some fake 3D data to visualize. Use the blast test, it'll be fine. 
 - Set up all the routines you need for the project
-    - Data loaders
-    - Frame generators
-    - File producers
+    [done] Data loaders
+    [done] Frame generators
+    [done] File producers
     - Customizations for it
 - Write the guide for making this package. 
 - Write tests for the routines
@@ -81,3 +81,20 @@ conda install mpi4py
 - added `export PATH="$PATH:/opt/anaconda3/lib"` to my .bash_profile
 - at this point `python configure.py --prob=kh -hdf5 --hdf5_path="/opt/local" -mpi --mpiccmd=mpic++` now compiles and runs
 -----
+
+8/27 
+- i'm back
+- got the movie generator for athena++ hdf5 files running
+- need to add more options to the custom param dict
+- other things? like how the other filetypes can be loaded
+- why am i SO disorganized jfc
+
+- how the fuck do you write tests for this thing
+
+- install editable: [pip install --editable .]
+    - this might allow me to make changes and scoot back and forth?
+
+- python -m pytest
+    - runs tests 
+    - run from the top level of yt_moviemaker
+    i honestly can't believe this works...
