@@ -30,9 +30,7 @@ class moviemaker(object):
                         'cmap':'turbo',
                         "save_dir":"./",
                         }
-
-    def get_frames_athenaPP_vtk(self):
-        print("Loading .vtk files of Athena++ data")
+        
 
     def get_frames_athenaPP_hdf5(self, data_dir, filepattern, sim, customparams=None):
         print("Loading HDF5 files of Athena++ data")
@@ -44,8 +42,7 @@ class moviemaker(object):
                 # print(keys, customparams[keys], self.paramdict[keys])
                 self.paramdict[keys] = customparams[keys]
                 
-
-        self.nfiles = u.get_n_athdf_outputs(data_dir)
+        self.nfiles = u.get_n_files_with_suffix(data_dir, suffix='.athdf')
         print(f"nfiles: {self.nfiles}")
         self.time_array = np.zeros(self.nfiles)
         self.frames_all = np.zeros((self.nfiles, self.paramdict['resolutionx'], self.paramdict['resolutiony']))
@@ -63,10 +60,36 @@ class moviemaker(object):
             if self.paramdict["units"] is not None: f.to(self.paramdict["units"])
             self.frames_all[i] = f
 
-        return 
+        return 1
 
-    def get_frames_from_file_list(self, files):
-        print("Generating frames from a list of filepaths - should work for any type of ")
+    def get_frames_from_file_list(self, file_list, data_dir, filepattern, sim, customparams=None):
+        print("Generating frames from a list of filepaths - should work for any type of input data that is yt-readable")
+        self.data_dir = data_dir
+        self.sim = sim
+        self.filepattern = filepattern
+        if customparams is not None:
+            for keys in customparams:
+                # print(keys, customparams[keys], self.paramdict[keys])
+                self.paramdict[keys] = customparams[keys]
+                
+        self.nfiles = len(file_list)
+        print(f"nfiles: {self.nfiles}")
+        self.time_array = np.zeros(self.nfiles)
+        self.frames_all = np.zeros((self.nfiles, self.paramdict['resolutionx'], self.paramdict['resolutiony']))
+        
+        for i in range(self.nfiles):
+            file = file_list[i]
+            print(file)
+            ds = yt.load(file, units_override=self.paramdict["units_override"])
+            self.time_array[i] = ds.current_time
+            sl = ds.cutting(self.paramdict["normal"], self.paramdict["center"], self.paramdict["north_vec"])
+            frb = FixedResolutionBuffer(sl, self.paramdict["region"], (self.paramdict["resolutiony"], self.paramdict["resolutionx"]))
+            ### YYY why this ordering for shapes...hm.
+            f = frb[self.paramdict["field"]]
+            if self.paramdict["units"] is not None: f.to(self.paramdict["units"])
+            self.frames_all[i] = f
+        
+        return 1
 
     def produce(self, filetype="gif", customfile = None):
         print(f"Making frames into a {filetype}")
@@ -92,17 +115,17 @@ class moviemaker(object):
                 im.set_clim(np.min(fi), np.max(fi))
             tx.set_text(f"{self.sim} {self.paramdict["field"]} [{self.paramdict["units"]}] t={self.time_array[i]:.2f}")
             
-        ani = animation.FuncAnimation(fig, animate, frames=self.nfiles, interval=200, blit=False, repeat_delay=10_000)
+        self.ani = animation.FuncAnimation(fig, animate, frames=self.nfiles, interval=200, blit=False, repeat_delay=10_000)
         plt.tight_layout()
         
         print(outfile)
         if filetype == 'gif':
-            ani.save(filename=outfile, writer='pillow')
+            self.ani.save(filename=outfile, writer='pillow')
         elif filetype == 'mp4':
-            ani.save(filename=outfile, writer="ffmpeg")
+            self.ani.save(filename=outfile, writer="ffmpeg")
         else:
             raise ValueError("That is not a valid file output type - must be 'gif' or 'mp4' ")
         
-        return ani
+        return 1
         
             

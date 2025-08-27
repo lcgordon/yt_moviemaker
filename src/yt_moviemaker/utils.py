@@ -3,11 +3,24 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-def get_n_athdf_outputs(dir_):
-    """ Determine how many output files are in a given directory
+def get_n_files_with_suffix(dir_, suffix=".athdf"):
+    """ 
+    Determine how many output files are in a given directory [dir_] with a given [suffix]
     """
     filelist = np.asarray(os.listdir(dir_))
-    return np.sum(np.asarray([1 if (filelist[i].endswith(".athdf")) else 0 for i in range(len(filelist))]))
+    return np.sum(np.asarray([1 if (filelist[i].endswith(suffix)) else 0 for i in range(len(filelist))]))
+
+def gen_filelist_from_pattern(data_dir, filepattern, suffix):
+    """ 
+    Make a list of files from a pattern
+    Unknown number of files, known data file patterning (very reasonable)
+    """
+    nfiles = get_n_files_with_suffix(data_dir, suffix)
+    files = []
+    for n in range(nfiles):
+        files.append(f"{data_dir}{filepattern}{str(n).zfill(5)}{suffix}")
+    return np.asarray(files)
+            
 
 def gen_custom_ticks(min_, max_, scale=30, noends=False):
     """ 

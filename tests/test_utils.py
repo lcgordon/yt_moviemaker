@@ -2,7 +2,7 @@
 import pytest
 import numpy as np
 
-"""Tests for `yt_moviemaker` package."""
+"""Tests for `yt_moviemaker` package's utils submodule."""
 
 from yt_moviemaker import utils
 
@@ -10,7 +10,7 @@ from yt_moviemaker import utils
 def test_test():
     assert True
 
-def test_get_n_athdf_outputs():
+def get_n_files_with_suffix():
     nfound = utils.get_n_athdf_outputs("./")
     assert nfound == 0
     
@@ -21,3 +21,8 @@ def test_gen_custom_ticks():
     tt = utils.gen_custom_ticks(-15, 15, 30, True)
     d2 = ["", "-300", "-150", "0", "150", "300", ""]
     assert tt == d2
+    
+def test_gen_filelist_from_pattern():
+    tt = utils.gen_filelist_from_pattern("./tests/test_data/", "Blast.out1.", ".athdf")
+    d = ['./tests/test_data/Blast.out1.00000.athdf', './tests/test_data/Blast.out1.00001.athdf']
+    assert np.all(tt == d)
