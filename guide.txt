@@ -8,10 +8,11 @@
     [done] Data loaders
     [done] Frame generators
     [done] File producers
-    - Customizations for it
+    [done] Customizations for it
 - Write the guide for making this package. 
-- Write tests for the routines
-    - Why is it called a test harness? How does it work? 
+    - write docs for it? 
+    - how to use sphynx..this is a problem for future me that i am not looking forward to very much.
+[done] Write tests for the routines
 - Publish to github
 - Promo on personal website
 
@@ -98,3 +99,20 @@ conda install mpi4py
     - runs tests 
     - run from the top level of yt_moviemaker
     i honestly can't believe this works...
+    write tests in there, run from cmd line at top of thing
+
+9/3/25
+- writing documentation. yeehaw. 
+- their instructions of 'python setup.py docs' doesn't work
+- ```make docs``` seems to be trying to do something
+    - need to conda install sphinx (?)
+    - sphinx-apidoc -o docs/ src/yt_moviemaker updated from just yt_moviemaker
+- https://www.sphinx-doc.org/en/master/tutorial/getting-started.html
+- https://samnicholls.net/2016/06/15/how-to-sphinx-readthedocs/ 
+    - themes: https://www.sphinx-doc.org/en/master/usage/theming.html
+- .. include:: ../../README.rst works!!
+
+- make html after the first sphinx-build run
+
+- added 'sphinx.ext.napoleon' extension
+- wrote the docs, build looks okay

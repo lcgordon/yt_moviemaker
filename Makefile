@@ -79,7 +79,7 @@ coverage: ## check code coverage quickly with the default Python
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/yt_moviemaker.md
 	rm -f docs/modules.md
-	sphinx-apidoc -o docs/ yt_moviemaker
+	sphinx-apidoc -o docs/ src/yt_moviemaker
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html

@@ -2,12 +2,12 @@
 
 ## Contents
 
-- [Readme](readme.md)
+- [Readme](../readme.md)
 - [Installation](installation.md)
 - [Usage](usage.md)
-- [Modules](modules.md)
+<!-- - [Modules](modules.md)
 - [Contributing](contributing.md)
-- [History](history.md)
+- [History](history.md) -->
 
 ## Indices and tables
 

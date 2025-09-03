@@ -16,6 +16,8 @@ import yt_moviemaker.utils as u
 
 class moviemaker(object):
     def __init__(self):
+        """ Initializes moviemaker object and initial default paramdict 
+        """
         print("Initialized object")
         self.paramdict={"region":(-1, 1, -1, 1),
                         "resolutionx": 64,
@@ -33,6 +35,17 @@ class moviemaker(object):
         
 
     def get_frames_athenaPP_hdf5(self, data_dir, filepattern, sim, customparams=None):
+        """ Generates frames from Athena++ HDF5 Data
+        Assumes a file pattern of {data_dir}/{filepattern}0000i.athdf
+        **Args:**
+            data_dir (str): filepath to data to use
+            filepattern (str): how the data files are named
+            sim (str): name for the simulation - will be used in output file name, title, etc. 
+            customparams (dict or None): optional arg to change settings in paramdict
+            
+        **Returns:**
+            1 if successful
+        """
         print("Loading HDF5 files of Athena++ data")
         self.data_dir = data_dir
         self.sim = sim
@@ -63,6 +76,19 @@ class moviemaker(object):
         return 1
 
     def get_frames_from_file_list(self, file_list, data_dir, filepattern, sim, customparams=None):
+        """ Generates frames from a list of files
+        File list can be generated from utils.gen_filelist_from_pattern()
+        
+        **Args:**
+            file_list (list): in-order list of files to load
+            data_dir (str): filepath to data
+            filepattern (str): how the data files are named
+            sim (str): name for the simulation - will be used in output file name, title, etc. 
+            customparams (dict or None): optional arg to change settings in paramdict
+            
+        **Returns:**
+            1 if successful
+        """
         print("Generating frames from a list of filepaths - should work for any type of input data that is yt-readable")
         self.data_dir = data_dir
         self.sim = sim
@@ -92,6 +118,15 @@ class moviemaker(object):
         return 1
 
     def produce(self, filetype="gif", customfile = None):
+        """ Produces the output movie
+        
+        **Args:**
+            filetype (str): 'gif' or 'mp4' are only supported options at this time
+            customfile (None or str): if not None, will save file into given string
+            
+        **Returns:**
+            1 if successful
+        """
         print(f"Making frames into a {filetype}")
         if customfile is not None:
             print(f"Saving into {customfile}")
