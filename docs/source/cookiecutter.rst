@@ -2,54 +2,89 @@ How This Package Was Built Using Cookiecutter
 =============================================
 
 
-The cookiecutter docs are, quite frankly, bad. Here's all the steps I did to put this package together on my Mac M4 running Sequoia 15.6. 
+The cookiecutter docs are not super easy to follow. Here's all the steps I did to put this package together.
+
+I'm running on my Mac M4 running Sequoia 15.6. 
 
 - Set up a development environment using conda
-    - substeps + link
+    - https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
+    - ``conda create --name myEnv``
+    - ``conda activate myEnv``
 
-- Installed cookiecutter
-    - https://cookiecutter.readthedocs.io/en/stable/README.html#installation
-    - Follow their instructions to install on system
+- Installing and setting up cookiecutter
+    - ``conda install pip``
+    - ``pip install -U cookiecutter``
+    - ``cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git``
+        - Fill out the question prompts
+    - This will create a local directory containing their boilerplate code
+    - References:
+        - https://github.com/audreyfeldroy/cookiecutter-pypackage
+        - https://cookiecutter.readthedocs.io/en/stable/README.html#installation
 
-- Initializing the repo: 
-    - pipx run cookiecutter cookiecutter-pypackage/ (?) 
-    - I'm about to have to follow my own directions I fear
-    - The main source code is here: https://github.com/audreyfeldroy/cookiecutter-pypackage. 
+- Writing the package
+    - Code:
+        - ``mypackage/src/mypackage/mypackage.py`` is where all your main functions go
+        - You can put other modules in ``mypackage/src/mypackage`` and call them from mypackage.py (ie, a utils.py file)
+    - Tests: 
+        - Yes, you do have to write tests for your code
+        - ``mypackage/tests/test_mypackage.py`` is the main test file
+            - you can write separate test_{name}.py test files in this same directory for other submodules
+        - ``pip install pytest``
+        - then from the top level directory you can run the tests as ``python -m pytest``
 
-- Once you have your repo set up, to install locally run ``pip install .`` from that directory
-    - You can also run ``pip install -e .`` which will run it in editable mode - you don't have to re-install after every change. 
+- Installing the package:
+    - Install locally: ``pip install .`` from inside the directory
+    - Install locally and editable: ``pip install -e .``
+        - You don't have to re-install every time you change your code
 
+- Using your shiny new package:
+    - From a different directory
+    :: 
 
-
-- Where code goes: 
-    - ``yt_moviemaker/src/yt_moviemaker/yt_moviemaker.py`` is where all your main functions go
-    - ``yt_moviemaker/src/yt_moviemaker/utils.py`` is where any helpers go
-        - and similar for any other modules you want
-
-- Where tests go: 
-    - ``yt_moviemaker/tests/test_yt_moviemaker.py`` is where the tests for yt_moviemaker.py can go
-    - run tests from the top level directory as ``python -m pytest``
-        - you will need to install pytest for this
-
-
-- After the package is installed, from a separate file in a different directory::
-
-    from yt_moviemaker import utils, yt_moviemaker
-    utils.do_something_useful()
-    x = yt_moviemaker.moviemaker()
-    
+        from mypackage import mypackage, utils
+        utils.do_something_useful()
+        x = mypackage.foo()
 
 - Writing and building documentation: 
-    - install sphinx
-    - sphinx-quickstart to set it up
-        - i set it up with separate source and build directories
-    - sphinx-apidoc -o docs/ src/yt_moviemaker
-    - sphinx-build [??]
-    - after this point can just run make html every time you want to update it
-    - .. include:: ../../README.rst should work but also gave me so much grief...
+    - ``pip install sphinx``
+    - cd into ``mypackage/docs/``
+    - ``sphinx-quickstart`` sets everything up
+        - follow prompts
+        - I set it up with separate source and build directories - if you don't you'll have to change the sphinx-build command
+    - cd back up to ``mypackage/``
+    - run ``sphinx-apidoc -o docs/ src/mypackage``
+        - This will auto-generate the API docs
+    - cd back into ``mypackage/docs/``
+    - run ``sphinx-build source build``
+    - after this point can just run ``make html`` every time you want to update the pages
+    - you can now open the .html files from build/ in your browser. 
+
+    - write some documentation
+        - you can link other files' content into .rst pages using ``.. include:: ../../README.rst`` 
+            - this gave me a ton of grief...just keep messing with it until it does what you want. 
+
+    - Docstrings and formatting
+        - In conf.py you can add:
+        :: 
+
+            extensions = ['sphinx.ext.napoleon']
+            napoleon_google_docstring = False
+            napoleon_use_param = False
+            napoleon_use_ivar = True
+
+        Which just does a nicer job of handling the docstring formatting in more standard Google/NumPy formatting
+
+
     - tutorials of use:
         - https://www.sphinx-doc.org/en/master/tutorial/getting-started.html
         - https://samnicholls.net/2016/06/15/how-to-sphinx-readthedocs/ 
     - misc
         - https://www.sphinx-doc.org/en/master/usage/theming.html
         - https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html#inserting-code-and-literal-blocks
+
+- Hooking into readthedocs
+    - UGH
+
+
+- Other bits and pieces:
+    - dependencies (like numpy or matplotlib or what have you) go into pyproject.toml file 

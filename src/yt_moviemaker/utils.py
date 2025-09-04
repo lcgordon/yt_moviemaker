@@ -44,7 +44,7 @@ def gen_filelist_from_pattern(data_dir, filepattern, suffix):
     return np.asarray(files)
             
 
-def gen_custom_ticks(min_, max_, scale=1, noends=False):
+def gen_custom_ticks(mmin, mmax, scale=1, noends=False):
     """ Generate custom tick labels for a given **min** and **max** at **scale** spacing.
     
         If noends = True, the smallest and largest labels will be empty strings (useful if plotting tightly spaced adjacent panels)
@@ -53,9 +53,12 @@ def gen_custom_ticks(min_, max_, scale=1, noends=False):
         rescale data from simulation scale to real. 
         
         **Args:**
-            min_ (float): Minimum value for the axis
-            max_ (float): Maximum value for the axis
+            mmin (float): Minimum value for the axis
+            
+            mmax (float): Maximum value for the axis
+            
             scale (float): rescales values along axis
+            
             noends (bool): Handles whether or not to make the end values empty strings
         
         **Returns:**
@@ -106,12 +109,18 @@ def physical_axes(ax, grid, region, xlabel, ylabel, scale=1, noends=False):
     
     **Args:**
         ax (matplotlib object): ax to set on
+        
         grid (array): data grid to get sizing of
+        
         region (tuple): 4 value tuple of the (xmin, xmax, ymin, ymax) of the grid
+        
         xlabel (str): x axis label
+        
         ylabel (str): y axis label
+        
         scale (float): rescales values along axis
-            noends (bool): Handles whether or not to make the end values empty strings
+        
+        noends (bool): Handles whether or not to make the end values empty strings
         
     **Returns:**
         1 if successful

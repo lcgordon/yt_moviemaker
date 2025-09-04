@@ -4,19 +4,19 @@ utils for making gifs and mp4 movies from yt loaded data
 
 and more importantly - my notes on how to package up and install python code using cookiecutter and readthedocs
 
-* PyPI package: https://pypi.org/project/yt-moviemaker/
 * Free software: MIT License
 * Documentation: https://yt-moviemaker.readthedocs.io.
 
 Features
 =============
 
-YYY
+* Takes customizable slices from 3D input data that is readable by the yt package and produces gif or mp4 files from them. 
+* Contains a tutorial for how this package was set up from a cookiecutter project. 
 
 ToDo
 ========
 
-YYY
+* More options for customizations
 
 
 Credits

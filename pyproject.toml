@@ -14,7 +14,11 @@ classifiers = [
 ]
 license = {text = "MIT"}
 dependencies = [
-  "typer"
+  "typer", 
+  "numpy",
+  'matplotlib', 
+  'imageio_ffmpeg',
+  'yt'
 ]
 requires-python = ">= 3.10"
 

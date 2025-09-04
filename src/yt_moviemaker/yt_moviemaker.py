@@ -36,11 +36,16 @@ class moviemaker(object):
 
     def get_frames_athenaPP_hdf5(self, data_dir, filepattern, sim, customparams=None):
         """ Generates frames from Athena++ HDF5 Data
+        
         Assumes a file pattern of {data_dir}/{filepattern}0000i.athdf
+        
         **Args:**
             data_dir (str): filepath to data to use
+            
             filepattern (str): how the data files are named
+            
             sim (str): name for the simulation - will be used in output file name, title, etc. 
+            
             customparams (dict or None): optional arg to change settings in paramdict
             
         **Returns:**
