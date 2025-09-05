@@ -18,7 +18,9 @@ dependencies = [
   "numpy",
   'matplotlib', 
   'imageio_ffmpeg',
-  'yt'
+  'yt',
+  "ruff",
+  "pytest"
 ]
 requires-python = ">= 3.10"
 

@@ -137,14 +137,14 @@ class moviemaker(object):
             print(f"Saving into {customfile}")
             outfile = customfile
         else: 
-            outfile = f"{self.paramdict["save_dir"]}/{self.sim}_{self.paramdict["field"]}_movie.{filetype}"
+            outfile = f"{self.paramdict['save_dir']}/{self.sim}_{self.paramdict['field']}_movie.{filetype}"
             
         fig, ax = plt.subplots(1, figsize=(10,10))
         f0 = self.frames_all[0]
         im = ax.pcolormesh(f0, norm=self.paramdict['normalize'], cmap=self.paramdict['cmap'])
         cax = ax.inset_axes([0.25, 0.05, 0.5, 0.05])
         cbar = plt.colorbar(im, cax=cax, orientation='horizontal')
-        tx = ax.set_title(f"{self.sim} {self.paramdict["field"]} [{self.paramdict["units"]}] t={self.time_array[0]:.2f}")
+        tx = ax.set_title(f"{self.sim} {self.paramdict['field']} [{self.paramdict['units']}] t={self.time_array[0]:.2f}")
         
         u.physical_axes(ax, f0, self.paramdict["region"], xlabel='x', ylabel='y')
         
@@ -153,7 +153,7 @@ class moviemaker(object):
             im.set_array(fi.ravel())
             if self.paramdict["normalize"] is None:
                 im.set_clim(np.min(fi), np.max(fi))
-            tx.set_text(f"{self.sim} {self.paramdict["field"]} [{self.paramdict["units"]}] t={self.time_array[i]:.2f}")
+            tx.set_text(f"{self.sim} {self.paramdict['field']} [{self.paramdict['units']}] t={self.time_array[i]:.2f}")
             
         self.ani = animation.FuncAnimation(fig, animate, frames=self.nfiles, interval=200, blit=False, repeat_delay=10_000)
         plt.tight_layout()

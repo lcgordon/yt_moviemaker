@@ -65,7 +65,7 @@ def gen_custom_ticks(mmin, mmax, scale=1, noends=False):
             labels (list of str): axis labels
         
     """
-    labels = [f"{int(i*scale)}" for i in np.linspace(min_, max_, 7)]
+    labels = [f"{int(i*scale)}" for i in np.linspace(mmin, mmax, 7)]
     if noends:
         labels[0] = labels[-1] = ""
     return labels
