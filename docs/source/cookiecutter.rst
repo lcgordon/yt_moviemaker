@@ -83,7 +83,13 @@ I'm running on my Mac M4 running Sequoia 15.6.
         - https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html#inserting-code-and-literal-blocks
 
 - Hooking into readthedocs
-    - UGH
+    - Get the repo onto GitHub
+        - these directions were useful for me: https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github#adding-a-local-repository-to-github-using-git
+        - Do NOT put your public access token into your work or you will be bonked when you commit and push
+    - Follow the readthedocs instructions: https://docs.readthedocs.com/platform/stable/tutorial/index.html
+        - Main thing I ran into: the new .readthedocs.yaml file needs the path to the conf.py file, which for me was in docs/source/conf.py and not the default docs/conf.py
+
+    - voila! 
 
 
 - Other bits and pieces:
