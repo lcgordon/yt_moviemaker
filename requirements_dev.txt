@@ -1,0 +1,5 @@
+typer
+numpy
+matplotlib
+imageio_ffmpeg
+yt 
