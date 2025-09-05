@@ -5,3 +5,4 @@ imageio_ffmpeg
 yt 
 ruff
 pytest
+h5py

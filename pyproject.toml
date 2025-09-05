@@ -20,7 +20,8 @@ dependencies = [
   'imageio_ffmpeg',
   'yt',
   "ruff",
-  "pytest"
+  "pytest",
+  'h5py'
 ]
 requires-python = ">= 3.10"
 
